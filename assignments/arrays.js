@@ -1,4 +1,4 @@
-const items = [1, 2, 3, 4, 5, 5]; // use this array to test your code. 
+const items = [1, 2, 3, 4, 5, 5]; // use this array to test your code.
 /*
   Complete the following functions.
   These functions only need to work with arrays.
@@ -15,6 +15,10 @@ function each(elements, cb) {
   // This only needs to work with arrays.
   // You should also pass the index into `cb` as the second argument
   // based off http://underscorejs.org/#each
+  for (let i = 0; i < elements.length; i++){
+    let curr = elements[i]
+    return cb(curr, i)
+  }
 }
 
 function map(elements, cb) {
@@ -22,6 +26,12 @@ function map(elements, cb) {
   // How map works: Map calls a provided callback function once for each element in an array, in order, and functionructs a new array from the res .
   // Produces a new array of values by mapping each value in list through a transformation function (iteratee).
   // Return the new array.
+  let newArr = []
+  for (let i = 0; i < elements.length; i++){
+    let curr = elements[i]
+    newArr.push(cb(curr))
+  }
+  return newArr
 }
 
 function reduce(elements, cb, startingValue) {
@@ -37,12 +47,27 @@ function find(elements, cb) {
   // Look through each value in `elements` and pass each element to `cb`.
   // If `cb` returns `true` then return that element.
   // Return `undefined` if no elements pass the truth test.
+  for (let i = 0; i < elements.length; i++){
+    let curr = elements[i]
+    if (cb(curr) === true) {
+      return curr
+    }
+  }
+  return undefined
 }
 
 function filter(elements, cb) {
   // Do NOT use .filter, to complete this function.
   // Similar to `find` but you will return an array of all elements that passed the truth test
   // Return an empty array if no elements pass the truth test
+  let newArr = []
+  for (let i = 0; i < elements.length; i++){
+    let curr = elements[i]
+    if (cb(curr) === true) {
+      newArr.push(curr)
+    }
+  }
+  return newArr
 }
 
 const nestedArray = [1, [2], [[3]], [[[4]]]]; // use this to test 'flatten'
@@ -51,4 +76,14 @@ function flatten(elements) {
   // Flattens a nested array (the nesting can be to any depth).
   // Hint: You can solve this using recursion.
   // Example: flatten([1, [2], [3, [[4]]]]); => [1, 2, 3, 4];
+  let newArr = [];
+  for (let i = 0; i < elements.length; i++) {
+    let curr = elements[i]
+    if (curr.length) {
+      elements = elements.concat(curr);
+    } else {
+      newArr.push(curr);
+    }
+  }
+  return newArr;
 }
